@@ -4,13 +4,19 @@ import { useEffect, useState } from "react"
 
 function JobBoard() {
   const [jobs, setJobs] = useState([])
+  const [error, setError] = useState()
 
   useEffect(() => {
-    getJobs().then((jobs) => {
-      setJobs(jobs)
-    })
+    getJobs()
+      .then((jobs) => {
+        setJobs(jobs)
+      })
+      .catch((err) => setError(true))
   }, [])
 
+  if (error) {
+    return <p>Something wen wrong</p>
+  }
   return (
     <div>
       <h1 className='title'>Job Board</h1>
@@ -20,3 +26,4 @@ function JobBoard() {
 }
 
 export default JobBoard
+
